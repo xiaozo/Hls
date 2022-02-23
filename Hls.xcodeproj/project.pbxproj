@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EB1D906E17F3A365E525F04 /* libPods-Hls.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 710B26E4B92F84D8923213FB /* libPods-Hls.a */; };
 		AF3C376F27C4B699007ABA76 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C376E27C4B699007ABA76 /* AppDelegate.m */; };
 		AF3C377227C4B699007ABA76 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C377127C4B699007ABA76 /* SceneDelegate.m */; };
 		AF3C377527C4B699007ABA76 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C377427C4B699007ABA76 /* ViewController.m */; };
@@ -17,6 +18,27 @@
 		AF3C378A27C4B69B007ABA76 /* HlsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C378927C4B69B007ABA76 /* HlsTests.m */; };
 		AF3C379427C4B69B007ABA76 /* HlsUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C379327C4B69B007ABA76 /* HlsUITests.m */; };
 		AF3C379627C4B69B007ABA76 /* HlsUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C379527C4B69B007ABA76 /* HlsUITestsLaunchTests.m */; };
+		AF3C37D127C4D636007ABA76 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37A527C4D636007ABA76 /* GCDAsyncSocket.m */; };
+		AF3C37D227C4D636007ABA76 /* HTTPErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37AF27C4D636007ABA76 /* HTTPErrorResponse.m */; };
+		AF3C37D327C4D636007ABA76 /* HTTPDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37B027C4D636007ABA76 /* HTTPDataResponse.m */; };
+		AF3C37D427C4D636007ABA76 /* HTTPDynamicFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37B227C4D636007ABA76 /* HTTPDynamicFileResponse.m */; };
+		AF3C37D527C4D636007ABA76 /* HTTPFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37B327C4D636007ABA76 /* HTTPFileResponse.m */; };
+		AF3C37D627C4D636007ABA76 /* HTTPAsyncFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37B427C4D636007ABA76 /* HTTPAsyncFileResponse.m */; };
+		AF3C37D727C4D636007ABA76 /* HTTPRedirectResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37B527C4D636007ABA76 /* HTTPRedirectResponse.m */; };
+		AF3C37D827C4D636007ABA76 /* HTTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37BB27C4D636007ABA76 /* HTTPMessage.m */; };
+		AF3C37D927C4D636007ABA76 /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37BC27C4D636007ABA76 /* HTTPConnection.m */; };
+		AF3C37DA27C4D636007ABA76 /* WebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37BD27C4D636007ABA76 /* WebSocket.m */; };
+		AF3C37DB27C4D636007ABA76 /* HTTPAuthenticationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37BF27C4D636007ABA76 /* HTTPAuthenticationRequest.m */; };
+		AF3C37DC27C4D636007ABA76 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37C127C4D636007ABA76 /* DDNumber.m */; };
+		AF3C37DD27C4D636007ABA76 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37C227C4D636007ABA76 /* DDData.m */; };
+		AF3C37DE27C4D636007ABA76 /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37C527C4D636007ABA76 /* DDRange.m */; };
+		AF3C37DF27C4D636007ABA76 /* HTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37C727C4D636007ABA76 /* HTTPServer.m */; };
+		AF3C37E027C4D636007ABA76 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37C927C4D636007ABA76 /* DDTTYLogger.m */; };
+		AF3C37E127C4D636007ABA76 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37CB27C4D636007ABA76 /* DDASLLogger.m */; };
+		AF3C37E227C4D636007ABA76 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37CD27C4D636007ABA76 /* DDLog.m */; };
+		AF3C37E327C4D636007ABA76 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37CF27C4D636007ABA76 /* DDFileLogger.m */; };
+		AF3C37E627C4D82C007ABA76 /* YDHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37E527C4D82C007ABA76 /* YDHTTPConnection.m */; };
+		AF9A877727C5E83F005B54E0 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9A877627C5E83F005B54E0 /* WKWebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2CC90090E907A790A1405AD8 /* Pods-Hls.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hls.debug.xcconfig"; path = "Target Support Files/Pods-Hls/Pods-Hls.debug.xcconfig"; sourceTree = "<group>"; };
+		710B26E4B92F84D8923213FB /* libPods-Hls.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hls.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF3C376A27C4B699007ABA76 /* Hls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hls.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF3C376D27C4B699007ABA76 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AF3C376E27C4B699007ABA76 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -54,6 +78,52 @@
 		AF3C378F27C4B69B007ABA76 /* HlsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HlsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF3C379327C4B69B007ABA76 /* HlsUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HlsUITests.m; sourceTree = "<group>"; };
 		AF3C379527C4B69B007ABA76 /* HlsUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HlsUITestsLaunchTests.m; sourceTree = "<group>"; };
+		AF3C37A227C4B923007ABA76 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		AF3C37A527C4D636007ABA76 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		AF3C37A627C4D636007ABA76 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		AF3C37A827C4D636007ABA76 /* HTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPConnection.h; sourceTree = "<group>"; };
+		AF3C37A927C4D636007ABA76 /* HTTPLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLogging.h; sourceTree = "<group>"; };
+		AF3C37AA27C4D636007ABA76 /* HTTPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPMessage.h; sourceTree = "<group>"; };
+		AF3C37AB27C4D636007ABA76 /* WebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebSocket.h; sourceTree = "<group>"; };
+		AF3C37AC27C4D636007ABA76 /* HTTPAuthenticationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAuthenticationRequest.h; sourceTree = "<group>"; };
+		AF3C37AE27C4D636007ABA76 /* HTTPAsyncFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPAsyncFileResponse.h; sourceTree = "<group>"; };
+		AF3C37AF27C4D636007ABA76 /* HTTPErrorResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPErrorResponse.m; sourceTree = "<group>"; };
+		AF3C37B027C4D636007ABA76 /* HTTPDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPDataResponse.m; sourceTree = "<group>"; };
+		AF3C37B127C4D636007ABA76 /* HTTPRedirectResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRedirectResponse.h; sourceTree = "<group>"; };
+		AF3C37B227C4D636007ABA76 /* HTTPDynamicFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPDynamicFileResponse.m; sourceTree = "<group>"; };
+		AF3C37B327C4D636007ABA76 /* HTTPFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPFileResponse.m; sourceTree = "<group>"; };
+		AF3C37B427C4D636007ABA76 /* HTTPAsyncFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPAsyncFileResponse.m; sourceTree = "<group>"; };
+		AF3C37B527C4D636007ABA76 /* HTTPRedirectResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRedirectResponse.m; sourceTree = "<group>"; };
+		AF3C37B627C4D636007ABA76 /* HTTPDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPDataResponse.h; sourceTree = "<group>"; };
+		AF3C37B727C4D636007ABA76 /* HTTPErrorResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPErrorResponse.h; sourceTree = "<group>"; };
+		AF3C37B827C4D636007ABA76 /* HTTPFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPFileResponse.h; sourceTree = "<group>"; };
+		AF3C37B927C4D636007ABA76 /* HTTPDynamicFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPDynamicFileResponse.h; sourceTree = "<group>"; };
+		AF3C37BA27C4D636007ABA76 /* HTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPServer.h; sourceTree = "<group>"; };
+		AF3C37BB27C4D636007ABA76 /* HTTPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPMessage.m; sourceTree = "<group>"; };
+		AF3C37BC27C4D636007ABA76 /* HTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPConnection.m; sourceTree = "<group>"; };
+		AF3C37BD27C4D636007ABA76 /* WebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebSocket.m; sourceTree = "<group>"; };
+		AF3C37BE27C4D636007ABA76 /* HTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPResponse.h; sourceTree = "<group>"; };
+		AF3C37BF27C4D636007ABA76 /* HTTPAuthenticationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPAuthenticationRequest.m; sourceTree = "<group>"; };
+		AF3C37C127C4D636007ABA76 /* DDNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDNumber.m; sourceTree = "<group>"; };
+		AF3C37C227C4D636007ABA76 /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
+		AF3C37C327C4D636007ABA76 /* DDRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDRange.h; sourceTree = "<group>"; };
+		AF3C37C427C4D636007ABA76 /* DDNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNumber.h; sourceTree = "<group>"; };
+		AF3C37C527C4D636007ABA76 /* DDRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDRange.m; sourceTree = "<group>"; };
+		AF3C37C627C4D636007ABA76 /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
+		AF3C37C727C4D636007ABA76 /* HTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPServer.m; sourceTree = "<group>"; };
+		AF3C37C927C4D636007ABA76 /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
+		AF3C37CA27C4D636007ABA76 /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
+		AF3C37CB27C4D636007ABA76 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
+		AF3C37CC27C4D636007ABA76 /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
+		AF3C37CD27C4D636007ABA76 /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
+		AF3C37CE27C4D636007ABA76 /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
+		AF3C37CF27C4D636007ABA76 /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
+		AF3C37D027C4D636007ABA76 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
+		AF3C37E427C4D82B007ABA76 /* YDHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDHTTPConnection.h; sourceTree = "<group>"; };
+		AF3C37E527C4D82C007ABA76 /* YDHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDHTTPConnection.m; sourceTree = "<group>"; };
+		AF9A877527C5E83F005B54E0 /* WKWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
+		AF9A877627C5E83F005B54E0 /* WKWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
+		DC7CA7AA14051B460AE6259F /* Pods-Hls.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hls.release.xcconfig"; path = "Target Support Files/Pods-Hls/Pods-Hls.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EB1D906E17F3A365E525F04 /* libPods-Hls.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +152,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9AB8B75B6780913A209859F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				710B26E4B92F84D8923213FB /* libPods-Hls.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AF3C376127C4B699007ABA76 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +167,8 @@
 				AF3C378827C4B69B007ABA76 /* HlsTests */,
 				AF3C379227C4B69B007ABA76 /* HlsUITests */,
 				AF3C376B27C4B699007ABA76 /* Products */,
+				FFFF8F80A2F9D9C7DA2FA398 /* Pods */,
+				9AB8B75B6780913A209859F5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,6 +185,8 @@
 		AF3C376C27C4B699007ABA76 /* Hls */ = {
 			isa = PBXGroup;
 			children = (
+				AF3C37A327C4D636007ABA76 /* Libs */,
+				AF3C37A227C4B923007ABA76 /* PrefixHeader.pch */,
 				AF3C376D27C4B699007ABA76 /* AppDelegate.h */,
 				AF3C376E27C4B699007ABA76 /* AppDelegate.m */,
 				AF3C377027C4B699007ABA76 /* SceneDelegate.h */,
@@ -115,6 +198,8 @@
 				AF3C377B27C4B69B007ABA76 /* LaunchScreen.storyboard */,
 				AF3C377E27C4B69B007ABA76 /* Info.plist */,
 				AF3C377F27C4B69B007ABA76 /* main.m */,
+				AF9A877527C5E83F005B54E0 /* WKWebViewController.h */,
+				AF9A877627C5E83F005B54E0 /* WKWebViewController.m */,
 			);
 			path = Hls;
 			sourceTree = "<group>";
@@ -136,6 +221,104 @@
 			path = HlsUITests;
 			sourceTree = "<group>";
 		};
+		AF3C37A327C4D636007ABA76 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				AF3C37E427C4D82B007ABA76 /* YDHTTPConnection.h */,
+				AF3C37E527C4D82C007ABA76 /* YDHTTPConnection.m */,
+				AF3C37A427C4D636007ABA76 /* TCP */,
+				AF3C37A727C4D636007ABA76 /* HTTP */,
+				AF3C37C827C4D636007ABA76 /* Logging */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		AF3C37A427C4D636007ABA76 /* TCP */ = {
+			isa = PBXGroup;
+			children = (
+				AF3C37A527C4D636007ABA76 /* GCDAsyncSocket.m */,
+				AF3C37A627C4D636007ABA76 /* GCDAsyncSocket.h */,
+			);
+			path = TCP;
+			sourceTree = "<group>";
+		};
+		AF3C37A727C4D636007ABA76 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				AF3C37A827C4D636007ABA76 /* HTTPConnection.h */,
+				AF3C37A927C4D636007ABA76 /* HTTPLogging.h */,
+				AF3C37AA27C4D636007ABA76 /* HTTPMessage.h */,
+				AF3C37AB27C4D636007ABA76 /* WebSocket.h */,
+				AF3C37AC27C4D636007ABA76 /* HTTPAuthenticationRequest.h */,
+				AF3C37AD27C4D636007ABA76 /* Responses */,
+				AF3C37BA27C4D636007ABA76 /* HTTPServer.h */,
+				AF3C37BB27C4D636007ABA76 /* HTTPMessage.m */,
+				AF3C37BC27C4D636007ABA76 /* HTTPConnection.m */,
+				AF3C37BD27C4D636007ABA76 /* WebSocket.m */,
+				AF3C37BE27C4D636007ABA76 /* HTTPResponse.h */,
+				AF3C37BF27C4D636007ABA76 /* HTTPAuthenticationRequest.m */,
+				AF3C37C027C4D636007ABA76 /* Categories */,
+				AF3C37C727C4D636007ABA76 /* HTTPServer.m */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
+		AF3C37AD27C4D636007ABA76 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				AF3C37AE27C4D636007ABA76 /* HTTPAsyncFileResponse.h */,
+				AF3C37AF27C4D636007ABA76 /* HTTPErrorResponse.m */,
+				AF3C37B027C4D636007ABA76 /* HTTPDataResponse.m */,
+				AF3C37B127C4D636007ABA76 /* HTTPRedirectResponse.h */,
+				AF3C37B227C4D636007ABA76 /* HTTPDynamicFileResponse.m */,
+				AF3C37B327C4D636007ABA76 /* HTTPFileResponse.m */,
+				AF3C37B427C4D636007ABA76 /* HTTPAsyncFileResponse.m */,
+				AF3C37B527C4D636007ABA76 /* HTTPRedirectResponse.m */,
+				AF3C37B627C4D636007ABA76 /* HTTPDataResponse.h */,
+				AF3C37B727C4D636007ABA76 /* HTTPErrorResponse.h */,
+				AF3C37B827C4D636007ABA76 /* HTTPFileResponse.h */,
+				AF3C37B927C4D636007ABA76 /* HTTPDynamicFileResponse.h */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		AF3C37C027C4D636007ABA76 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				AF3C37C127C4D636007ABA76 /* DDNumber.m */,
+				AF3C37C227C4D636007ABA76 /* DDData.m */,
+				AF3C37C327C4D636007ABA76 /* DDRange.h */,
+				AF3C37C427C4D636007ABA76 /* DDNumber.h */,
+				AF3C37C527C4D636007ABA76 /* DDRange.m */,
+				AF3C37C627C4D636007ABA76 /* DDData.h */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		AF3C37C827C4D636007ABA76 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				AF3C37C927C4D636007ABA76 /* DDTTYLogger.m */,
+				AF3C37CA27C4D636007ABA76 /* DDLog.h */,
+				AF3C37CB27C4D636007ABA76 /* DDASLLogger.m */,
+				AF3C37CC27C4D636007ABA76 /* DDFileLogger.h */,
+				AF3C37CD27C4D636007ABA76 /* DDLog.m */,
+				AF3C37CE27C4D636007ABA76 /* DDTTYLogger.h */,
+				AF3C37CF27C4D636007ABA76 /* DDFileLogger.m */,
+				AF3C37D027C4D636007ABA76 /* DDASLLogger.h */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		FFFF8F80A2F9D9C7DA2FA398 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2CC90090E907A790A1405AD8 /* Pods-Hls.debug.xcconfig */,
+				DC7CA7AA14051B460AE6259F /* Pods-Hls.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +326,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AF3C379927C4B69B007ABA76 /* Build configuration list for PBXNativeTarget "Hls" */;
 			buildPhases = (
+				C8AC12D89E12EFA49316EA52 /* [CP] Check Pods Manifest.lock */,
 				AF3C376627C4B699007ABA76 /* Sources */,
 				AF3C376727C4B699007ABA76 /* Frameworks */,
 				AF3C376827C4B699007ABA76 /* Resources */,
@@ -261,14 +445,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C8AC12D89E12EFA49316EA52 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Hls-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AF3C376627C4B699007ABA76 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF3C37DB27C4D636007ABA76 /* HTTPAuthenticationRequest.m in Sources */,
+				AF3C37E027C4D636007ABA76 /* DDTTYLogger.m in Sources */,
+				AF3C37E327C4D636007ABA76 /* DDFileLogger.m in Sources */,
+				AF3C37D427C4D636007ABA76 /* HTTPDynamicFileResponse.m in Sources */,
+				AF3C37D827C4D636007ABA76 /* HTTPMessage.m in Sources */,
+				AF3C37DE27C4D636007ABA76 /* DDRange.m in Sources */,
+				AF3C37E127C4D636007ABA76 /* DDASLLogger.m in Sources */,
 				AF3C377527C4B699007ABA76 /* ViewController.m in Sources */,
+				AF3C37DA27C4D636007ABA76 /* WebSocket.m in Sources */,
+				AF3C37D227C4D636007ABA76 /* HTTPErrorResponse.m in Sources */,
+				AF9A877727C5E83F005B54E0 /* WKWebViewController.m in Sources */,
+				AF3C37E627C4D82C007ABA76 /* YDHTTPConnection.m in Sources */,
+				AF3C37DD27C4D636007ABA76 /* DDData.m in Sources */,
+				AF3C37DF27C4D636007ABA76 /* HTTPServer.m in Sources */,
+				AF3C37DC27C4D636007ABA76 /* DDNumber.m in Sources */,
+				AF3C37D127C4D636007ABA76 /* GCDAsyncSocket.m in Sources */,
+				AF3C37D527C4D636007ABA76 /* HTTPFileResponse.m in Sources */,
+				AF3C37D627C4D636007ABA76 /* HTTPAsyncFileResponse.m in Sources */,
 				AF3C376F27C4B699007ABA76 /* AppDelegate.m in Sources */,
+				AF3C37E227C4D636007ABA76 /* DDLog.m in Sources */,
+				AF3C37D727C4D636007ABA76 /* HTTPRedirectResponse.m in Sources */,
+				AF3C37D927C4D636007ABA76 /* HTTPConnection.m in Sources */,
 				AF3C378027C4B69B007ABA76 /* main.m in Sources */,
+				AF3C37D327C4D636007ABA76 /* HTTPDataResponse.m in Sources */,
 				AF3C377227C4B699007ABA76 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,11 +669,15 @@
 		};
 		AF3C379A27C4B69B007ABA76 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2CC90090E907A790A1405AD8 /* Pods-Hls.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 95G7KHB9NJ;
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/Hls/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hls/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -451,25 +685,30 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Hls;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jsl.Test1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		AF3C379B27C4B69B007ABA76 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC7CA7AA14051B460AE6259F /* Pods-Hls.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 95G7KHB9NJ;
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/Hls/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hls/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -477,15 +716,16 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.Hls;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jsl.Test1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

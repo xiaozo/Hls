@@ -1,0 +1,8 @@
+/Pods
+Podfile.lock
+/xcuserdata
+../xcuserdata/
+xcuserdata/
+xcuserdata
+/Hls.xcworkspace
+.DS_Store

@@ -22,11 +22,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import "ZykjMacroHeader.h"
-#import "ZykjExtHeader.h"
 #import "ZykjUtilsHeader.h"
-#import "ZykjViewHeader.h"
-#import <fmdb/FMDB.h>
-#import "TIMHeader.h"
 
 #endif
 

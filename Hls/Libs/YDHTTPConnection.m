@@ -113,30 +113,15 @@ static const int httpLogLevel = LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 	HTTPLogTrace();
 	
     //获取token
-	if ([path isEqualToString:@"/getIdfa"])
+	if ([path rangeOfString:@".m3u8"].location != NSNotFound)
     {
         HTTPLogVerbose(@"%@[%p]: postContentLength: %qu", THIS_FILE, self, requestContentLength);
 //        NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 //        NSData *responseData = [idfa dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"hashbe0906609b32f6d254a80dcbf2f38750.m3u8"ofType:nil];
+        NSString *filePath = [NSString stringWithFormat:@"%@/%@",self.getWebServerRoot,path];
         NSData *responseData = [NSData dataWithContentsOfFile:filePath];
         return [[HTTPHLSDataResponse alloc] initWithData:responseData];
 	}
-    //获取任务
-    if ([method isEqualToString:@"POST"] && [path isEqualToString:@"/calculate"])
-    {
-        HTTPLogVerbose(@"%@[%p]: postContentLength: %qu", THIS_FILE, self, requestContentLength);
-        NSData *requestData = [request body];
-        NSDictionary *params = [self getRequestParam:requestData];
-        NSInteger firstNum = [params[@"firstNum"] integerValue];
-        NSInteger secondNum = [params[@"secondNum"] integerValue];
-        NSDictionary *responsDic = @{@"add":@(firstNum + secondNum),
-                                     @"sub":@(firstNum - secondNum),
-                                     @"mul":@(firstNum * secondNum),
-                                     @"div":@(firstNum / secondNum)};
-        NSData *responseData = [NSJSONSerialization dataWithJSONObject:responsDic options:0 error:nil];
-        return [[HTTPDataResponse alloc] initWithData:responseData];
-    }
 	
 	return [super httpResponseForMethod:method URI:path];
 }
@@ -167,20 +152,9 @@ static const int httpLogLevel = LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 
 #pragma mark - 私有方法
 
-//获取上行参数
-- (NSDictionary *)getRequestParam:(NSData *)rawData
-{
-    if (!rawData) return nil;
-    
-    NSString *raw = [[NSString alloc] initWithData:rawData encoding:NSUTF8StringEncoding];
-    NSMutableDictionary *paramDic = [NSMutableDictionary dictionary];
-    NSArray *array = [raw componentsSeparatedByString:@"&"];
-    for (NSString *string in array) {
-        NSArray *arr = [string componentsSeparatedByString:@"="];
-        NSString *value = [arr.lastObject stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        [paramDic setValue:value forKey:arr.firstObject];
-    }
-    return [paramDic copy];
+- (NSString *)getWebServerRoot {
+    NSString *path = [NSString stringWithFormat:@"%@/ZYKJAppServerRoot",[PathUtility getDocumentPath]];
+    return path;
 }
 
 @end
