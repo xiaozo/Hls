@@ -1,0 +1,35 @@
+//
+//  PrefixHeader.pch
+//  SuperMama
+//
+//  Created by macbook on 15/7/7.
+//  Copyright (c) 2015年 macbook. All rights reserved.
+//
+
+#ifndef WuYe_PrefixHeader_pch
+#define WuYe_PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef __OBJC__
+
+#ifndef __OPTIMIZE__
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#define NSLog(...) {}
+#endif
+
+#import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+#import "ZykjMacroHeader.h"
+#import "ZykjExtHeader.h"
+#import "ZykjUtilsHeader.h"
+#import "ZykjViewHeader.h"
+#import <fmdb/FMDB.h>
+#import "TIMHeader.h"
+
+#endif
+
+#endif
+
+
