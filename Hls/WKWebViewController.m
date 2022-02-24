@@ -12,6 +12,7 @@
 
 #import <WebKit/WKWebView.h>
 #import <WebKit/WebKit.h>
+#import "HTCustomURLProtocol.h"
 
 typedef enum{
     loadWebURLString = 0,
@@ -47,6 +48,20 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        //注册scheme
+           Class cls = NSClassFromString(@"WKBrowsingContextController");
+           SEL sel = NSSelectorFromString(@"registerSchemeForCustomProtocol:");
+           if ([cls respondsToSelector:sel]) {
+               // 通过http和https的请求，同理可通过其他的Scheme 但是要满足ULR Loading System
+               [cls performSelector:sel withObject:@"http"];
+               [cls performSelector:sel withObject:@"https"];
+           }
+    });
+    
+    [NSURLProtocol registerClass:[HTCustomURLProtocol class]];
     
     //加载web页面
     [self webViewloadURLType];
@@ -498,5 +513,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 //注意，观察的移除
 -(void)dealloc{
     [self.wkWebView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
+    
+    [NSURLProtocol unregisterClass:[HTCustomURLProtocol class]];
 }
 @end

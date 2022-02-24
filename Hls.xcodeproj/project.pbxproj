@@ -38,6 +38,7 @@
 		AF3C37E227C4D636007ABA76 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37CD27C4D636007ABA76 /* DDLog.m */; };
 		AF3C37E327C4D636007ABA76 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37CF27C4D636007ABA76 /* DDFileLogger.m */; };
 		AF3C37E627C4D82C007ABA76 /* YDHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37E527C4D82C007ABA76 /* YDHTTPConnection.m */; };
+		AF45C67327C7543600A5B52A /* HTCustomURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = AF45C67227C7543500A5B52A /* HTCustomURLProtocol.m */; };
 		AF9A877727C5E83F005B54E0 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9A877627C5E83F005B54E0 /* WKWebViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +122,8 @@
 		AF3C37D027C4D636007ABA76 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
 		AF3C37E427C4D82B007ABA76 /* YDHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDHTTPConnection.h; sourceTree = "<group>"; };
 		AF3C37E527C4D82C007ABA76 /* YDHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDHTTPConnection.m; sourceTree = "<group>"; };
+		AF45C67127C7543500A5B52A /* HTCustomURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCustomURLProtocol.h; sourceTree = "<group>"; };
+		AF45C67227C7543500A5B52A /* HTCustomURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCustomURLProtocol.m; sourceTree = "<group>"; };
 		AF9A877527C5E83F005B54E0 /* WKWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
 		AF9A877627C5E83F005B54E0 /* WKWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
 		DC7CA7AA14051B460AE6259F /* Pods-Hls.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hls.release.xcconfig"; path = "Target Support Files/Pods-Hls/Pods-Hls.release.xcconfig"; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 		AF3C376C27C4B699007ABA76 /* Hls */ = {
 			isa = PBXGroup;
 			children = (
+				AF45C67127C7543500A5B52A /* HTCustomURLProtocol.h */,
+				AF45C67227C7543500A5B52A /* HTCustomURLProtocol.m */,
 				AF3C37A327C4D636007ABA76 /* Libs */,
 				AF3C37A227C4B923007ABA76 /* PrefixHeader.pch */,
 				AF3C376D27C4B699007ABA76 /* AppDelegate.h */,
@@ -497,6 +502,7 @@
 				AF3C37E227C4D636007ABA76 /* DDLog.m in Sources */,
 				AF3C37D727C4D636007ABA76 /* HTTPRedirectResponse.m in Sources */,
 				AF3C37D927C4D636007ABA76 /* HTTPConnection.m in Sources */,
+				AF45C67327C7543600A5B52A /* HTCustomURLProtocol.m in Sources */,
 				AF3C378027C4B69B007ABA76 /* main.m in Sources */,
 				AF3C37D327C4D636007ABA76 /* HTTPDataResponse.m in Sources */,
 				AF3C377227C4B699007ABA76 /* SceneDelegate.m in Sources */,

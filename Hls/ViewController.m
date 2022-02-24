@@ -21,9 +21,6 @@
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
-#define KvideoName @"video.m3u8"
-#define KvideoInfo @"videoInfo.plist"
-#define kwebUrl(value)   [NSString stringWithFormat:@"http://localhost:9946/%@/video.m3u8",value]
 @interface Downloaded : NSObject
 
 @property (copy, nonatomic) NSString *webUrl;
@@ -581,14 +578,10 @@ static NSURLSessionDownloadTask *downloadTask;
     
     Downloaded *download = _downloadedList[indexPath.row];
     WKWebViewController *dst = [[WKWebViewController alloc] init];
-//    dst.webUrl = @"http://www.baidu.com";
     [dst loadWebURLSring:download.webUrl];
     
     [self.navigationController pushViewController:dst animated:YES];
     
-//    NSURL *URL = [NSURL URLWithString:download.webUrl];
-//
-//    [[UIApplication sharedApplication]openURL:URL];
 }
 
 
