@@ -23,6 +23,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "ZykjMacroHeader.h"
 #import "ZykjUtilsHeader.h"
+#import "AppDelegate.h"
 
 #endif
 

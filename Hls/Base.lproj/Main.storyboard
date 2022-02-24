@@ -36,6 +36,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="首页" id="qyA-tj-lUf">
+                        <barButtonItem key="leftBarButtonItem" title="网页" id="S0k-tJ-4rj">
+                            <connections>
+                                <action selector="goweb:" destination="BYZ-38-t0r" id="NEQ-Ve-eFR"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem title="添加" id="KYp-mz-Y8h">
                                 <connections>

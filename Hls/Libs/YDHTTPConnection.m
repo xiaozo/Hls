@@ -116,8 +116,8 @@ static const int httpLogLevel = LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 	if ([path rangeOfString:@".m3u8"].location != NSNotFound)
     {
         HTTPLogVerbose(@"%@[%p]: postContentLength: %qu", THIS_FILE, self, requestContentLength);
-//        NSString *idfa = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-//        NSData *responseData = [idfa dataUsingEncoding:NSUTF8StringEncoding];
+        path = [path componentsSeparatedByString:@"?"].firstObject;
+        
         NSString *filePath = [NSString stringWithFormat:@"%@/%@",self.getWebServerRoot,path];
         NSData *responseData = [NSData dataWithContentsOfFile:filePath];
         return [[HTTPHLSDataResponse alloc] initWithData:responseData];

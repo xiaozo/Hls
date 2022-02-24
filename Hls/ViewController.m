@@ -75,7 +75,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     [self loadDownLoadedList];
-
+    
 }
 
 - (void)showTip:(NSString *)msg {
@@ -88,6 +88,50 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     hud.offset = CGPointMake(0.f, MBProgressMaxOffset);
 
     [hud hideAnimated:YES afterDelay:2.0];
+}
+- (IBAction)goweb:(id)sender {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"地址"
+                                                                             message:@"请输入网页地址"
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    // 2.1 添加文本框
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"url";
+        textField.text = [[UIPasteboard generalPasteboard] string];
+        textField.clearButtonMode = UITextFieldViewModeAlways;
+    }];
+ 
+
+    // 2.2  创建Cancel Login按钮
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"Cancel Action");
+    }];
+    UIAlertAction *loginAction = [UIAlertAction actionWithTitle:@"go" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *url = alertController.textFields.firstObject;
+       
+        if (url.text.checkUrl) {
+            NSString *urlStr = url.text;
+            WKWebViewController *dst = [[WKWebViewController alloc] init];
+            
+            dst.isOpenInterceptReq = YES;
+            [dst loadWebURLSring:urlStr];
+            
+            [self.navigationController pushViewController:dst animated:YES];
+            
+     
+        } else {
+            [self showTip:@"url不正确"];
+        }
+       
+    }];
+
+ // 2.3 添加按钮
+    [alertController addAction:cancelAction];
+    [alertController addAction:loginAction];
+
+ [self presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 - (IBAction)reset:(id)sender {
@@ -147,7 +191,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                NSFileManager *myFileManager = [NSFileManager defaultManager];
                NSArray *myDirectorys = [myFileManager contentsOfDirectoryAtPath:BASE_PATH error:nil];
             for (NSString *directory in myDirectorys) {
-                if ([directory rangeOfString:@"."].location == 0) {
+                if ([directory rangeOfString:@"."].location == 0
+                    || [directory isEqualToString:@"Cache"]) {
                     ///过滤隐藏文件
                     continue;
                 }
@@ -261,6 +306,23 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return path;
 }
 
+- (NSString *)getWebCahceRootDir:(NSString *)subdirectory {
+    NSString *rootPath = [self getWebServerRootDir:nil];
+    
+    NSFileManager *fm  = [NSFileManager defaultManager];
+    
+    subdirectory = subdirectory.length ? [NSString stringWithFormat:@"Cache/%@",subdirectory] : @"Cache";
+    NSString *path = [rootPath stringByAppendingPathComponent:subdirectory];
+    
+   
+    if (![fm fileExistsAtPath:path]) {
+        [fm createDirectoryAtPath:path
+      withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    return path;
+}
+
 ////根据url获取目录名字
 - (NSString *)getTempDirNameWithUrlStr:(NSString *)urlStr {
     return [NSString md5String:urlStr];
@@ -322,6 +384,7 @@ static NSURLSessionDownloadTask *downloadTask;
     }
    
     NSString *m3u8Name = [NSString md5String:urlStr];
+    NSString *orginUrlStr = [NSString paramValueOfUrl:urlStr withParam:@"orginUrl"].length ? [NSString paramValueOfUrl:urlStr withParam:@"orginUrl"] : urlStr;
     
    NSString *path = [[self getTempDirWithUrlStr:urlStr] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.m3u8",m3u8Name]];
    NSString *accessPath = [[self getTempDirWithUrlStr:urlStr] stringByAppendingPathComponent:KvideoName];
@@ -383,14 +446,14 @@ static NSURLSessionDownloadTask *downloadTask;
                         ///ts结尾
                         if ([tline hasPrefix:@"/"]) {
                             ///绝对路径
-                            NSString *substringForMatch = [NSString stringWithFormat:@"%@://%@/%@",[NSURL URLWithString:urlStr].scheme, [NSURL URLWithString:urlStr].host,tline];
+                            NSString *substringForMatch = [NSString stringWithFormat:@"%@://%@/%@",[NSURL URLWithString:orginUrlStr].scheme, [NSURL URLWithString:orginUrlStr].host,tline];
                             [m3u8FileUrlStrs addObject:substringForMatch];
                             tline = [NSString stringWithFormat:@"%@/%@",@"<hls/>", [self localTsNameByTsUrlStr:substringForMatch]];
                         } else {
                             /// 相对路径路径
-                            NSString* lastPathComponent = [NSURL URLWithString:urlStr].lastPathComponent;
-                            NSInteger index = [urlStr rangeOfString:lastPathComponent].location;
-                            NSString *substringForMatch = [NSString stringWithFormat:@"%@/%@",[urlStr substringToIndex:index],tline];
+                            NSString* lastPathComponent = [NSURL URLWithString:orginUrlStr].lastPathComponent;
+                            NSInteger index = [orginUrlStr rangeOfString:lastPathComponent].location;
+                            NSString *substringForMatch = [NSString stringWithFormat:@"%@/%@",[orginUrlStr substringToIndex:index],tline];
                             [m3u8FileUrlStrs addObject:substringForMatch];
                             tline = [NSString stringWithFormat:@"%@/%@",@"<hls/>", [self localTsNameByTsUrlStr:substringForMatch]];
                         }

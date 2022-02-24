@@ -46,9 +46,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 @implementation WKWebViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
++ (void)initialize {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         //注册scheme
@@ -60,8 +58,14 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
                [cls performSelector:sel withObject:@"https"];
            }
     });
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
-    [NSURLProtocol registerClass:[HTCustomURLProtocol class]];
+    if (_isOpenInterceptReq) {
+        [NSURLProtocol registerClass:[HTCustomURLProtocol class]];
+    }
+    
     
     //加载web页面
     [self webViewloadURLType];
@@ -514,6 +518,9 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 -(void)dealloc{
     [self.wkWebView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
     
-    [NSURLProtocol unregisterClass:[HTCustomURLProtocol class]];
+    if (_isOpenInterceptReq) {
+        [NSURLProtocol unregisterClass:[HTCustomURLProtocol class]];
+    }
+   
 }
 @end

@@ -14,6 +14,8 @@
 /** 是否显示Nav */
 @property (nonatomic,assign) BOOL isNavHidden;
 
+@property (nonatomic,assign) BOOL isOpenInterceptReq;
+
 /**
  加载纯外部链接网页
  @param string URL地址

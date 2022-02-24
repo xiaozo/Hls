@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @interface AppDelegate () {
     UIBackgroundTaskIdentifier bgTask;
@@ -14,14 +15,22 @@
 @end
 
 @implementation AppDelegate
-
-
+- (ViewController *)viewController {
+    return ((UINavigationController *)UIApplication.sharedApplication.keyWindow.rootViewController).viewControllers.firstObject;
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
     return YES;
 }
 
+- (NSString *)getWebServerCacheDir:(NSString *)subdirectory {
+    return [self.viewController getWebCahceRootDir:subdirectory];
+}
+
+- (void)downloadM3u8WithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
+    [self.viewController downloadM3u8WithUrl:urlStr isOnceDownload:NO];
+}
 
 #pragma mark - UISceneSession lifecycle
 
