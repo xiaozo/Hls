@@ -17,6 +17,7 @@
 
 //NSString *urlstr = @"https://abc.xkys.tv/m3u8/hashbe0906609b32f6d254a80dcbf2f38750.m3u8";
 //http://localhost:9946/hashbe0906609b32f6d254a80dcbf2f38750/video.m3u8
+//https://pcvideotxott.titan.mgtv.com.8old.cn/player/video/data/d5ba5a16a92bc364d312278164e2e8c8.m3u8
 
 static const int ddLogLevel = LOG_LEVEL_WARN;
 
@@ -51,7 +52,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 @interface ViewController () <UITableViewDelegate,UITableViewDataSource>
 {
     HTTPServer *httpServer;
-    AFURLSessionManager *manager;
+    AFHTTPSessionManager *manager;
     
 }
 
@@ -73,8 +74,9 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     
     [self startServer];
     
-    manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-
+    manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
     [self loadDownLoadedList];
 
 }
@@ -126,7 +128,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
            if (url.text.checkUrl) {
                NSString *urlStr = url.text;
                urlStr = [urlStr urlAddCompnentForValue:name.text key:@"videoName"];
-               [self downloadM3u8WithUrl:urlStr isOnceDownload:NO];
+               [self downloadWithUrl:urlStr isOnceDownload:NO];
            } else {
                [self showTip:@"url不正确"];
            }
@@ -143,7 +145,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 - (void)loadDownLoadedList {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         @synchronized (self) {
-            NSLog(@"logs__loadDownLoadedList");
             NSMutableArray *undownloadedList = @[].mutableCopy;
             NSString *BASE_PATH = [self getTempDirWithUrlStr:nil];
                NSFileManager *myFileManager = [NSFileManager defaultManager];
@@ -208,7 +209,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 - (void)loadNextUnDownload {
     @synchronized (self) {
-        NSLog(@"logs__loadNextUnDownload");
         if (self.undownloadedList.count) {
             Downloaded *download = self.undownloadedList.firstObject;
             [self downloadM3u8WithUrl:download.webUrl isOnceDownload:YES];
@@ -266,9 +266,12 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 ////根据url获取目录名字
 - (NSString *)getTempDirNameWithUrlStr:(NSString *)urlStr {
-    NSURL *url = [NSURL URLWithString:urlStr];
-    NSString *subdirectory = [url.lastPathComponent stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@",url.pathExtension] withString:@""];
-    return subdirectory;
+    return [NSString md5String:urlStr];
+}
+
+///根据m3u8的具体资源地址获取文件名
+- (NSString *)localTsNameByTsUrlStr:(NSString *)tsUrlStr {
+    return [NSString md5String:tsUrlStr];
 }
 
 ///根据url获取临时下载目录
@@ -293,8 +296,27 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     return path;
 }
 
+
+
 static MBProgressHUD *hud;
 static NSURLSessionDownloadTask *downloadTask;
+- (void)downloadWithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
+//    if ([urlStr rangeOfString:@".m3u8"].location != NSNotFound) {
+//        [self downloadM3u8WithUrl:urlStr isOnceDownload:isOnceDownload];
+//    } else {
+//        [self downloadWithUrl:urlStr isOnceDownload:isOnceDownload];
+//    }
+    
+    [self downloadM3u8WithUrl:urlStr isOnceDownload:isOnceDownload];
+}
+
+- (void)downloadCommonWithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
+    @synchronized (self) {
+        if (hud) return;
+        hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    }
+}
+
 - (void)downloadM3u8WithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload{
     
     @synchronized (self) {
@@ -302,9 +324,9 @@ static NSURLSessionDownloadTask *downloadTask;
         hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     }
    
-    NSString *m3u8Name = [NSURL URLWithString:urlStr].lastPathComponent;
+    NSString *m3u8Name = [NSString md5String:urlStr];
     
-   NSString *path = [[self getTempDirWithUrlStr:urlStr] stringByAppendingPathComponent:m3u8Name];
+   NSString *path = [[self getTempDirWithUrlStr:urlStr] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.m3u8",m3u8Name]];
    NSString *accessPath = [[self getTempDirWithUrlStr:urlStr] stringByAppendingPathComponent:KvideoName];
     NSString *videoInfoPath = [[self getTempDirWithUrlStr:urlStr] stringByAppendingPathComponent:KvideoInfo];
     
@@ -359,8 +381,26 @@ static NSURLSessionDownloadTask *downloadTask;
                         ///匹配到url
                         NSString* substringForMatch = [tline substringWithRange:((NSTextCheckingResult *)arrayOfAllMatches.firstObject).range];
                         [m3u8FileUrlStrs addObject:substringForMatch];
-                        tline = [NSString stringWithFormat:@"%@/%@",@"<hls/>", [substringForMatch componentsSeparatedByString:@"/"].lastObject];
-                    }
+                        tline = [NSString stringWithFormat:@"%@/%@",@"<hls/>", [self localTsNameByTsUrlStr:substringForMatch]];
+                    } else if ([tline rangeOfString:@".ts"].location != NSNotFound) {
+                        ///ts结尾
+                        if ([tline hasPrefix:@"/"]) {
+                            ///绝对路径
+                            NSString *substringForMatch = [NSString stringWithFormat:@"%@://%@/%@",[NSURL URLWithString:urlStr].scheme, [NSURL URLWithString:urlStr].host,tline];
+                            [m3u8FileUrlStrs addObject:substringForMatch];
+                            tline = [NSString stringWithFormat:@"%@/%@",@"<hls/>", [self localTsNameByTsUrlStr:substringForMatch]];
+                        } else {
+                            /// 相对路径路径
+                            NSString* lastPathComponent = [NSURL URLWithString:urlStr].lastPathComponent;
+                            NSInteger index = [urlStr rangeOfString:lastPathComponent].location;
+                            NSString *substringForMatch = [NSString stringWithFormat:@"%@/%@",[urlStr substringToIndex:index],tline];
+                            [m3u8FileUrlStrs addObject:substringForMatch];
+                            tline = [NSString stringWithFormat:@"%@/%@",@"<hls/>", [self localTsNameByTsUrlStr:substringForMatch]];
+                        }
+                      
+                        
+                    } 
+                    
                     [videoM3u8 appendString:tline];
                     [videoM3u8 appendString:@"\n"];
                 }
@@ -424,7 +464,7 @@ static NSURLSessionDownloadTask *downloadTask;
     }
     NSURL *subfileUrl = [NSURL URLWithString:m3u8FileUrlStrs.firstObject];
     
-    NSString *subfile = [[self getTempDirWithUrlStr:urlStr] stringByAppendingPathComponent:subfileUrl.lastPathComponent];
+    NSString *subfile = [[self getTempDirWithUrlStr:urlStr] stringByAppendingPathComponent:[self localTsNameByTsUrlStr:m3u8FileUrlStrs.firstObject]];
 //       　　　　 NSLog(@"substringForMatch");
     /* 开始请求下载 */
     if ([[NSFileManager defaultManager] fileExistsAtPath:subfile]) {
@@ -435,7 +475,9 @@ static NSURLSessionDownloadTask *downloadTask;
         [hud.progressObject resignCurrent];
         
     } else {
-        downloadTask = [manager downloadTaskWithRequest:[NSMutableURLRequest requestWithURL:subfileUrl] progress:^(NSProgress * _Nonnull downloadProgress) {
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:subfileUrl];
+        [request addValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15" forHTTPHeaderField:@"User-Agent"];
+        downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
             NSLog(@"下载进度：%.0f％", downloadProgress.fractionCompleted * 100);
         } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -533,7 +575,7 @@ static NSURLSessionDownloadTask *downloadTask;
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.section == 0) {
         Downloaded *download = _undownloadedList[indexPath.row];
-        [self downloadM3u8WithUrl:download.webUrl isOnceDownload:YES];
+        [self downloadWithUrl:download.webUrl isOnceDownload:YES];
         return;
     }
     
