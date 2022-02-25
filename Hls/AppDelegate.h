@@ -14,6 +14,7 @@
 
 - (NSString *)getWebServerCacheDir:(NSString *)subdirectory;
 - (void)downloadM3u8WithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload;
+- (void)alertDownloadWithUrl:(NSString *)url;
 
 @end
 

@@ -29,7 +29,12 @@
 }
 
 - (void)downloadM3u8WithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
-    [self.viewController downloadM3u8WithUrl:urlStr isOnceDownload:NO];
+    [self.viewController downloadM3u8WithUrl:urlStr isOnceDownload:isOnceDownload];
+}
+
+- (void)alertDownloadWithUrl:(NSString *)url {
+    [UIPasteboard generalPasteboard].string = url;
+    [self.viewController inputAdree:nil];
 }
 
 #pragma mark - UISceneSession lifecycle

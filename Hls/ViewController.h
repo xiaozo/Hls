@@ -18,5 +18,7 @@
 
 - (void)downloadM3u8WithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload;
 
+- (IBAction)inputAdree:(id)sender;
+
 @end
 

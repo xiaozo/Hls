@@ -73,6 +73,7 @@ static NSString * const HTCustomURLProtocolHandledKey = @"HTCustomURLProtocolHan
 
 + (void)alert:(NSString *)title url:(NSString *)url {
     dispatch_async(dispatch_get_main_queue(), ^{
+//        [((AppDelegate *)UIApplication.sharedApplication.delegate) downloadM3u8WithUrl:kWebCahceRootUrl(m3u8Name) isOnceDownload:NO];
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:title
                                                                            message:url
                                                                     preferredStyle:UIAlertControllerStyleAlert];
@@ -81,7 +82,18 @@ static NSString * const HTCustomURLProtocolHandledKey = @"HTCustomURLProtocolHan
                                                                     style:UIAlertActionStyleDefault
                                                                   handler:^(UIAlertAction * action) {
                     [UIPasteboard generalPasteboard].string = url;
-                                                                  }];
+                 }];
+        
+        UIAlertAction* downloadAction = [UIAlertAction actionWithTitle:@"添加下载"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [((AppDelegate *)UIApplication.sharedApplication.delegate) alertDownloadWithUrl:url];
+            });
+            
+            
+           }];
+        
         UIAlertAction* verificationAction = [UIAlertAction actionWithTitle:@"验证"
                                                                 style:UIAlertActionStyleDefault
                                                               handler:^(UIAlertAction * action) {
@@ -99,6 +111,10 @@ static NSString * const HTCustomURLProtocolHandledKey = @"HTCustomURLProtocolHan
             }];
             [alert addAction:cancelAction];
             [alert addAction:verificationAction];
+        
+        if ([url rangeOfString:@".m3u8"].location != NSNotFound) {
+            [alert addAction:downloadAction];
+        }
             [alert addAction:defaultAction];
         
             [UIApplication.sharedApplication.keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];

@@ -79,7 +79,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (void)showTip:(NSString *)msg {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
     // Set the text mode to show only text.
     hud.mode = MBProgressHUDModeText;
@@ -98,7 +98,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     // 2.1 添加文本框
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"url";
-        textField.text = [[UIPasteboard generalPasteboard] string];
+        textField.text = @"https://www.chok8.com";
         textField.clearButtonMode = UITextFieldViewModeAlways;
     }];
  
@@ -142,6 +142,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 - (IBAction)inputAdree:(id)sender {
     
     // 1.创建UIAlertController
+    
        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"地址"
                                                                                 message:@"请输入m3u8地址"
                                                                          preferredStyle:UIAlertControllerStyleAlert];
@@ -169,7 +170,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
            if (url.text.checkUrl) {
                NSString *urlStr = url.text;
                urlStr = [urlStr urlAddCompnentForValue:name.text key:@"videoName"];
-               [self downloadWithUrl:urlStr isOnceDownload:NO];
+               [self downloadWithUrl:urlStr isOnceDownload:YES];
            } else {
                [self showTip:@"url不正确"];
            }
@@ -180,9 +181,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
        [alertController addAction:cancelAction];
        [alertController addAction:loginAction];
 
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self.navigationController presentViewController:alertController animated:YES completion:nil];
     
 }
+
+
 - (void)loadDownLoadedList {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         @synchronized (self) {
@@ -357,6 +360,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 
 
 
+static MBProgressHUD *m3u8filehud;
 static MBProgressHUD *hud;
 static NSURLSessionDownloadTask *downloadTask;
 - (void)downloadWithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
@@ -369,20 +373,20 @@ static NSURLSessionDownloadTask *downloadTask;
     [self downloadM3u8WithUrl:urlStr isOnceDownload:isOnceDownload];
 }
 
-- (void)downloadCommonWithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
-    @synchronized (self) {
-        if (hud) return;
-        hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    }
-}
+//- (void)downloadCommonWithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
+//    @synchronized (self) {
+//        if (hud) return;
+//        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    }
+//}
 
 - (void)downloadM3u8WithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload{
     
     @synchronized (self) {
-        if (hud) return;
-        hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        if (m3u8filehud) return;
+        m3u8filehud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
-   
+    
     NSString *m3u8Name = [NSString md5String:urlStr];
     NSString *orginUrlStr = [NSString paramValueOfUrl:urlStr withParam:@"orginUrl"].length ? [NSString paramValueOfUrl:urlStr withParam:@"orginUrl"] : urlStr;
     
@@ -467,11 +471,16 @@ static NSURLSessionDownloadTask *downloadTask;
                 
                 [videoM3u8 writeToFile:accessPath atomically:YES encoding:NSUTF8StringEncoding error:nil];
                 
-                [hud hideAnimated:YES];
-                hud = nil;
+                [m3u8filehud hideAnimated:YES];
+                m3u8filehud = nil;
 
                 if (isOnceDownload) {
-                    hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+                    
+                    @synchronized (self) {
+                        ///加个锁
+                        if (hud) return;
+                        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    }
                     
                     // Set the determinate mode to show task progress.
                     hud.mode = MBProgressHUDModeDeterminate;
@@ -497,9 +506,14 @@ static NSURLSessionDownloadTask *downloadTask;
 
 - (void)downloadM3u8WithM3u8FileUrlStrs:(NSMutableArray *)m3u8FileUrlStrs Url:(NSString *)urlStr{
     
-    if (hud == nil) {
-        return;
+    
+    @synchronized (self) {
+        ///加个锁
+        if (hud == nil) {
+            return;
+        }
     }
+    
     if (m3u8FileUrlStrs.count == 0) {
 //    if (1) {
         NSLog(@"全部下载完毕");
@@ -681,7 +695,7 @@ static NSURLSessionDownloadTask *downloadTask;
                 
             }
             
-            hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 [[NSFileManager defaultManager] removeItemAtPath:download.filePath error:nil];
                 dispatch_async(dispatch_get_main_queue(), ^{
