@@ -21,7 +21,7 @@ static NSCache *cache;
     dispatch_once(&onceToken, ^{
         //注册scheme
         cache = [[NSCache alloc]init];
-        cache.totalCostLimit = 50;
+        cache.countLimit = 50;
     });
 }
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
