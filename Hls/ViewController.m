@@ -67,7 +67,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
+//    [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     [self startServer];
     
@@ -256,7 +256,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     @synchronized (self) {
         if (self.undownloadedList.count) {
             Downloaded *download = self.undownloadedList.firstObject;
-            [self downloadM3u8WithUrl:download.webUrl isOnceDownload:YES];
+            [self downloadWithUrl:download.webUrl isOnceDownload:YES];
         }
     }
 }
@@ -364,21 +364,22 @@ static MBProgressHUD *m3u8filehud;
 static MBProgressHUD *hud;
 static NSURLSessionDownloadTask *downloadTask;
 - (void)downloadWithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
-//    if ([urlStr rangeOfString:@".m3u8"].location != NSNotFound) {
-//        [self downloadM3u8WithUrl:urlStr isOnceDownload:isOnceDownload];
+//    if ([urlStr rangeOfString:@".mp4"].location != NSNotFound) {
+//        [self downloadCommonWithUrl:urlStr isOnceDownload:isOnceDownload];
 //    } else {
-//        [self downloadWithUrl:urlStr isOnceDownload:isOnceDownload];
+//        [self downloadM3u8WithUrl:urlStr isOnceDownload:isOnceDownload];
 //    }
     
     [self downloadM3u8WithUrl:urlStr isOnceDownload:isOnceDownload];
+    
 }
 
-//- (void)downloadCommonWithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
+- (void)downloadCommonWithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
 //    @synchronized (self) {
 //        if (hud) return;
 //        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //    }
-//}
+}
 
 - (void)downloadM3u8WithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload{
     
@@ -484,7 +485,7 @@ static NSURLSessionDownloadTask *downloadTask;
                     
                     // Set the determinate mode to show task progress.
                     hud.mode = MBProgressHUDModeDeterminate;
-                    hud.label.text = NSLocalizedString(@"Loading...", @"HUD loading title");
+                    hud.label.text = @"下载中。。";
 
                     // Set up NSProgress
                     NSProgress *progressObject = [NSProgress progressWithTotalUnitCount:m3u8FileUrlStrs.count];
@@ -554,9 +555,6 @@ static NSURLSessionDownloadTask *downloadTask;
         downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
             NSLog(@"下载进度：%.0f％", downloadProgress.fractionCompleted * 100);
         } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //如果需要进行UI操作，需要获取主线程进行操作
-            });
             /* 设定下载到的位置 */
             return [NSURL fileURLWithPath:subfile];
                     

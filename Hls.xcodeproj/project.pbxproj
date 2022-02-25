@@ -39,6 +39,7 @@
 		AF3C37E327C4D636007ABA76 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37CF27C4D636007ABA76 /* DDFileLogger.m */; };
 		AF3C37E627C4D82C007ABA76 /* YDHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37E527C4D82C007ABA76 /* YDHTTPConnection.m */; };
 		AF45C67327C7543600A5B52A /* HTCustomURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = AF45C67227C7543500A5B52A /* HTCustomURLProtocol.m */; };
+		AF45C67A27C8865300A5B52A /* QDNetServerDownLoadTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AF45C67927C8865300A5B52A /* QDNetServerDownLoadTool.m */; };
 		AF9A877727C5E83F005B54E0 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9A877627C5E83F005B54E0 /* WKWebViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +125,8 @@
 		AF3C37E527C4D82C007ABA76 /* YDHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDHTTPConnection.m; sourceTree = "<group>"; };
 		AF45C67127C7543500A5B52A /* HTCustomURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTCustomURLProtocol.h; sourceTree = "<group>"; };
 		AF45C67227C7543500A5B52A /* HTCustomURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCustomURLProtocol.m; sourceTree = "<group>"; };
+		AF45C67827C8865300A5B52A /* QDNetServerDownLoadTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDNetServerDownLoadTool.h; sourceTree = "<group>"; };
+		AF45C67927C8865300A5B52A /* QDNetServerDownLoadTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDNetServerDownLoadTool.m; sourceTree = "<group>"; };
 		AF9A877527C5E83F005B54E0 /* WKWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
 		AF9A877627C5E83F005B54E0 /* WKWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
 		DC7CA7AA14051B460AE6259F /* Pods-Hls.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hls.release.xcconfig"; path = "Target Support Files/Pods-Hls/Pods-Hls.release.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 				AF3C377F27C4B69B007ABA76 /* main.m */,
 				AF9A877527C5E83F005B54E0 /* WKWebViewController.h */,
 				AF9A877627C5E83F005B54E0 /* WKWebViewController.m */,
+				AF45C67827C8865300A5B52A /* QDNetServerDownLoadTool.h */,
+				AF45C67927C8865300A5B52A /* QDNetServerDownLoadTool.m */,
 			);
 			path = Hls;
 			sourceTree = "<group>";
@@ -481,6 +486,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF3C37DB27C4D636007ABA76 /* HTTPAuthenticationRequest.m in Sources */,
+				AF45C67A27C8865300A5B52A /* QDNetServerDownLoadTool.m in Sources */,
 				AF3C37E027C4D636007ABA76 /* DDTTYLogger.m in Sources */,
 				AF3C37E327C4D636007ABA76 /* DDFileLogger.m in Sources */,
 				AF3C37D427C4D636007ABA76 /* HTTPDynamicFileResponse.m in Sources */,
