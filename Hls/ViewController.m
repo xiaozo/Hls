@@ -75,7 +75,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
     manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 //    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    [self loadDownLoadedList];
+    [self loadDownLoadedList:nil];
     
 }
 
@@ -187,7 +187,7 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 
-- (void)loadDownLoadedList {
+- (void)loadDownLoadedList:(CommonVoidBlock)block {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         @synchronized (self) {
             NSMutableArray *undownloadedList = @[].mutableCopy;
@@ -218,9 +218,6 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                 
             }
             self.undownloadedList = undownloadedList;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
             
             NSMutableArray *downloadedList = @[].mutableCopy;
             BASE_PATH = [self getWebServerRootDir:nil];
@@ -250,7 +247,11 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
+            if (block) {
+                block();
+            }
         });
+        
     });
 }
 
@@ -393,7 +394,7 @@ static NSURLSessionDownloadTask *downloadTask;
     
     //写入文件
     [vidoInfoDict writeToFile:videoInfoPath atomically:YES];
-    [self loadDownLoadedList];
+    [self loadDownLoadedList:nil];
     
     @synchronized (self) {
         if (hud) return;
@@ -421,7 +422,7 @@ static NSURLSessionDownloadTask *downloadTask;
         
         [self deallocDownload];
         
-        [self loadDownLoadedList];
+        [self loadDownLoadedList:nil];
         
       
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -462,7 +463,7 @@ static NSURLSessionDownloadTask *downloadTask;
         //写入文件
         [vidoInfoDict writeToFile:videoInfoPath atomically:YES];
         
-        [self loadDownLoadedList];
+        [self loadDownLoadedList:nil];
     }
    
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -585,7 +586,7 @@ static NSURLSessionDownloadTask *downloadTask;
         
         [self deallocDownload];
         
-        [self loadDownLoadedList];
+        [self loadDownLoadedList:nil];
         
       
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -764,9 +765,11 @@ static NSURLSessionDownloadTask *downloadTask;
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
                 [[NSFileManager defaultManager] removeItemAtPath:download.filePath error:nil];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self loadDownLoadedList];
-                    [hud hideAnimated:YES];
-                    hud = nil;
+                    [self loadDownLoadedList:^{
+                        [hud hideAnimated:YES];
+                        hud = nil;
+                    }];
+                   
                    
                 });
             });
