@@ -112,9 +112,7 @@ static NSString * const HTCustomURLProtocolHandledKey = @"HTCustomURLProtocolHan
             [alert addAction:cancelAction];
             [alert addAction:verificationAction];
         
-        if ([url rangeOfString:@".m3u8"].location != NSNotFound) {
             [alert addAction:downloadAction];
-        }
             [alert addAction:defaultAction];
         
             [UIApplication.sharedApplication.keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];

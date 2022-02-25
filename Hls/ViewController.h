@@ -9,7 +9,7 @@
 
 #define KvideoName @"video.m3u8"
 #define KvideoInfo @"videoInfo.plist"
-#define kwebUrl(value)   [NSString stringWithFormat:@"http://localhost:9946/%@/video.m3u8",value]
+#define kwebUrl(value)   [NSString stringWithFormat:@"http://localhost:9946/%@",value]
 #define kWebCahceRootUrl(value,orginUrl)  [NSString stringWithFormat:@"http://localhost:9946/Cache/%@?orginUrl=%@",value,orginUrl]
 
 @interface ViewController : UIViewController

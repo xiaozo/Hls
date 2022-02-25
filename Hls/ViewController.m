@@ -14,6 +14,7 @@
 #import "WKWebViewController.h"
 #import "MBProgressHUD.h"
 #import "NSString+RegexCheck.h"
+#import "QDNetServerDownLoadTool.h"
 
 //NSString *urlstr = @"https://abc.xkys.tv/m3u8/hashbe0906609b32f6d254a80dcbf2f38750.m3u8";
 //http://localhost:9946/hashbe0906609b32f6d254a80dcbf2f38750/video.m3u8
@@ -238,7 +239,8 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
                 
                 NSMutableDictionary *videoInfoDict = [[NSMutableDictionary alloc]initWithContentsOfFile:videoInfoPath];
                 NSString *name = [videoInfoDict valueForKey:@"name"];
-                NSString *url = kwebUrl(directory);
+                NSString *webFileName = [videoInfoDict valueForKey:@"web_file_name"] ? : KvideoName;
+                NSString *url = kwebUrl([directory stringByAppendingPathComponent:webFileName]);
                 NSString *filePath = [BASE_PATH stringByAppendingPathComponent:directory];
                 [downloadedList addObject:[[Downloaded alloc] initWithWebUrl:url name:name filePath:filePath]];
                 
@@ -364,21 +366,76 @@ static MBProgressHUD *m3u8filehud;
 static MBProgressHUD *hud;
 static NSURLSessionDownloadTask *downloadTask;
 - (void)downloadWithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
-//    if ([urlStr rangeOfString:@".mp4"].location != NSNotFound) {
-//        [self downloadCommonWithUrl:urlStr isOnceDownload:isOnceDownload];
-//    } else {
-//        [self downloadM3u8WithUrl:urlStr isOnceDownload:isOnceDownload];
-//    }
-    
-    [self downloadM3u8WithUrl:urlStr isOnceDownload:isOnceDownload];
+    if ([urlStr rangeOfString:@".mp4"].location != NSNotFound) {
+        [self downloadCommonWithUrl:urlStr isOnceDownload:isOnceDownload];
+    } else {
+        [self downloadM3u8WithUrl:urlStr isOnceDownload:isOnceDownload];
+    }
     
 }
 
 - (void)downloadCommonWithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload {
-//    @synchronized (self) {
-//        if (hud) return;
-//        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    }
+   
+    
+    // Set the determinate mode to show task progress.
+    
+    NSString *fileName = [NSString md5String:urlStr];
+    NSString *videoInfoPath = [[self getTempDirWithUrlStr:urlStr] stringByAppendingPathComponent:KvideoInfo];
+    NSString *path = [[self getTempDirWithUrlStr:urlStr] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",[NSURL URLWithString:urlStr].lastPathComponent]];
+    
+    NSMutableDictionary *vidoInfoDict = [[NSMutableDictionary alloc] init];
+    
+      //设置属性值
+    fileName = [NSString paramValueOfUrl:urlStr withParam:@"videoName"] ? [NSString stringWithFormat:@"%@_%@",[NSString paramValueOfUrl:urlStr withParam:@"videoName"],fileName]: fileName;
+      [vidoInfoDict setObject:fileName forKey:@"name"];
+      [vidoInfoDict setObject:urlStr forKey:@"net_url"];
+      [vidoInfoDict setObject:[NSURL URLWithString:urlStr].lastPathComponent forKey:@"web_file_name"];
+    
+    //写入文件
+    [vidoInfoDict writeToFile:videoInfoPath atomically:YES];
+    [self loadDownLoadedList];
+    
+    @synchronized (self) {
+        if (hud) return;
+        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeDeterminate;
+        hud.label.text = @"下载中。。";
+
+        // Set up NSProgress
+        hud.progress = 0;
+        // Configure a cancel button.
+        [hud.button setTitle:NSLocalizedString(@"Cancel", @"HUD cancel button title") forState:UIControlStateNormal];
+        [hud.button addTarget:self action:@selector(cancelCommonDownload) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    NSURLSessionDownloadTask *tempTask = [[QDNetServerDownLoadTool sharedTool]AFDownLoadFileWithUrl:urlStr progress:^(CGFloat progress) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            hud.progress = progress;
+            NSLog(@"%.2f",hud.progress);
+        });
+    } fileLocalUrl:[NSURL fileURLWithPath:path isDirectory:NO] success:^(NSURL *fileUrlPath, NSURLResponse *response) {
+        
+        NSLog(@"全部下载完毕");
+        NSString *subdirectory = [self getTempDirNameWithUrlStr:urlStr];
+        [[NSFileManager defaultManager] moveItemAtPath:[self getTempDirWithUrlStr:urlStr] toPath:[self getWebServerRootDir:subdirectory] error:nil];
+        
+        [self deallocDownload];
+        
+        [self loadDownLoadedList];
+        
+      
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self loadNextUnDownload];
+        });
+    } failure:^(NSError *error, NSInteger statusCode) {
+        NSLog(@"下载失败,下载的data被downLoad工具处理了 ");
+        [self showTip:error.localizedDescription];
+        [self deallocDownload];
+        
+    }];
+    downloadTask = tempTask;
+    
+    
 }
 
 - (void)downloadM3u8WithUrl:(NSString *)urlStr isOnceDownload:(BOOL)isOnceDownload{
@@ -585,6 +642,16 @@ static NSURLSessionDownloadTask *downloadTask;
     
     [self deallocDownload];
 }
+
+- (void)cancelCommonDownload {
+    [downloadTask cancelByProducingResumeData:^(NSData * _Nullable resumeData) {
+    }];
+    
+    [hud hideAnimated:YES];
+    
+    [self deallocDownload];
+}
+
 
 - (void)deallocDownload {
     [hud hideAnimated:YES];
