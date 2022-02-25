@@ -40,6 +40,11 @@
 		AF3C37E627C4D82C007ABA76 /* YDHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = AF3C37E527C4D82C007ABA76 /* YDHTTPConnection.m */; };
 		AF45C67327C7543600A5B52A /* HTCustomURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = AF45C67227C7543500A5B52A /* HTCustomURLProtocol.m */; };
 		AF45C67A27C8865300A5B52A /* QDNetServerDownLoadTool.m in Sources */ = {isa = PBXBuildFile; fileRef = AF45C67927C8865300A5B52A /* QDNetServerDownLoadTool.m */; };
+		AF45C67E27C8A51000A5B52A /* CustomExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = AF45C67D27C8A50F00A5B52A /* CustomExceptionHandler.m */; };
+		AF45C68027C8A72300A5B52A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF45C67F27C8A72300A5B52A /* SystemConfiguration.framework */; };
+		AF45C68227C8A72B00A5B52A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF45C68127C8A72B00A5B52A /* Security.framework */; };
+		AF45C68427C8A74000A5B52A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AF45C68327C8A73C00A5B52A /* libz.tbd */; };
+		AF45C68627C8A74B00A5B52A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AF45C68527C8A74700A5B52A /* libc++.tbd */; };
 		AF9A877727C5E83F005B54E0 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9A877627C5E83F005B54E0 /* WKWebViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +132,12 @@
 		AF45C67227C7543500A5B52A /* HTCustomURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTCustomURLProtocol.m; sourceTree = "<group>"; };
 		AF45C67827C8865300A5B52A /* QDNetServerDownLoadTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDNetServerDownLoadTool.h; sourceTree = "<group>"; };
 		AF45C67927C8865300A5B52A /* QDNetServerDownLoadTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDNetServerDownLoadTool.m; sourceTree = "<group>"; };
+		AF45C67C27C8A50F00A5B52A /* CustomExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomExceptionHandler.h; sourceTree = "<group>"; };
+		AF45C67D27C8A50F00A5B52A /* CustomExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomExceptionHandler.m; sourceTree = "<group>"; };
+		AF45C67F27C8A72300A5B52A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		AF45C68127C8A72B00A5B52A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AF45C68327C8A73C00A5B52A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		AF45C68527C8A74700A5B52A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		AF9A877527C5E83F005B54E0 /* WKWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
 		AF9A877627C5E83F005B54E0 /* WKWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
 		DC7CA7AA14051B460AE6259F /* Pods-Hls.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hls.release.xcconfig"; path = "Target Support Files/Pods-Hls/Pods-Hls.release.xcconfig"; sourceTree = "<group>"; };
@@ -137,6 +148,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF45C68027C8A72300A5B52A /* SystemConfiguration.framework in Frameworks */,
+				AF45C68627C8A74B00A5B52A /* libc++.tbd in Frameworks */,
+				AF45C68427C8A74000A5B52A /* libz.tbd in Frameworks */,
+				AF45C68227C8A72B00A5B52A /* Security.framework in Frameworks */,
 				0EB1D906E17F3A365E525F04 /* libPods-Hls.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -161,6 +176,10 @@
 		9AB8B75B6780913A209859F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AF45C68527C8A74700A5B52A /* libc++.tbd */,
+				AF45C68327C8A73C00A5B52A /* libz.tbd */,
+				AF45C68127C8A72B00A5B52A /* Security.framework */,
+				AF45C67F27C8A72300A5B52A /* SystemConfiguration.framework */,
 				710B26E4B92F84D8923213FB /* libPods-Hls.a */,
 			);
 			name = Frameworks;
@@ -210,6 +229,8 @@
 				AF9A877627C5E83F005B54E0 /* WKWebViewController.m */,
 				AF45C67827C8865300A5B52A /* QDNetServerDownLoadTool.h */,
 				AF45C67927C8865300A5B52A /* QDNetServerDownLoadTool.m */,
+				AF45C67C27C8A50F00A5B52A /* CustomExceptionHandler.h */,
+				AF45C67D27C8A50F00A5B52A /* CustomExceptionHandler.m */,
 			);
 			path = Hls;
 			sourceTree = "<group>";
@@ -508,6 +529,7 @@
 				AF3C37E227C4D636007ABA76 /* DDLog.m in Sources */,
 				AF3C37D727C4D636007ABA76 /* HTTPRedirectResponse.m in Sources */,
 				AF3C37D927C4D636007ABA76 /* HTTPConnection.m in Sources */,
+				AF45C67E27C8A51000A5B52A /* CustomExceptionHandler.m in Sources */,
 				AF45C67327C7543600A5B52A /* HTCustomURLProtocol.m in Sources */,
 				AF3C378027C4B69B007ABA76 /* main.m in Sources */,
 				AF3C37D327C4D636007ABA76 /* HTTPDataResponse.m in Sources */,

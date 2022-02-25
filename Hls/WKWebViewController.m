@@ -14,6 +14,32 @@
 #import <WebKit/WebKit.h>
 #import "HTCustomURLProtocol.h"
 
+@interface WKProcessPool (SharedProcessPool)
+
++(WKProcessPool*)sharedProcessPool;
+@end
+
+
+
+@implementation WKProcessPool (SharedProcessPool)
+
++(WKProcessPool*)sharedProcessPool {
+
+static WKProcessPool* SharedProcessPool;
+
+static dispatch_once_t onceToken;
+
+dispatch_once(&onceToken, ^{
+
+  SharedProcessPool = [[WKProcessPool alloc] init];
+});
+
+return SharedProcessPool;
+
+}
+
+@end
+
 typedef enum{
     loadWebURLString = 0,
     loadWebHTMLString,
@@ -431,6 +457,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
     if (!_wkWebView) {
         //设置网页的配置文件
         WKWebViewConfiguration * Configuration = [[WKWebViewConfiguration alloc]init];
+      
         //允许视频播放
         Configuration.allowsAirPlayForMediaPlayback = YES;
         // 允许在线播放
@@ -438,7 +465,7 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
         // 允许可以与网页交互，选择视图
         Configuration.selectionGranularity = YES;
         // web内容处理池
-        Configuration.processPool = [[WKProcessPool alloc] init];
+        Configuration.processPool = [WKProcessPool sharedProcessPool];
         //自定义配置,一般用于 js调用oc方法(OC拦截URL中的数据做自定义操作)
         WKUserContentController * UserContentController = [[WKUserContentController alloc]init];
         // 添加消息处理，注意：self指代的对象需要遵守WKScriptMessageHandler协议，结束时需要移除
@@ -520,6 +547,11 @@ static void *WkwebBrowserContext = &WkwebBrowserContext;
 
 //注意，观察的移除
 -(void)dealloc{
+    
+    [_wkWebView stopLoading];
+    _wkWebView.UIDelegate = nil;
+    _wkWebView.navigationDelegate = nil;
+    
     [_wkWebView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress))];
     
     if (_isOpenInterceptReq) {

@@ -256,11 +256,15 @@ static const int ddLogLevel = LOG_LEVEL_WARN;
 }
 
 - (void)loadNextUnDownload {
+    Downloaded *download;
     @synchronized (self) {
         if (self.undownloadedList.count) {
-            Downloaded *download = self.undownloadedList.firstObject;
-            [self downloadWithUrl:download.webUrl isOnceDownload:YES];
+            download = self.undownloadedList.firstObject;
         }
+    }
+    
+    if (download) {
+        [self downloadWithUrl:download.webUrl isOnceDownload:YES];
     }
 }
 
@@ -422,12 +426,11 @@ static NSURLSessionDownloadTask *downloadTask;
         
         [self deallocDownload];
         
-        [self loadDownLoadedList:nil];
+        [self loadDownLoadedList:^{
+            [self loadNextUnDownload];
+        }];
         
       
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self loadNextUnDownload];
-        });
     } failure:^(NSError *error, NSInteger statusCode) {
         NSLog(@"下载失败,下载的data被downLoad工具处理了 ");
         [self showTip:error.localizedDescription];
@@ -586,12 +589,9 @@ static NSURLSessionDownloadTask *downloadTask;
         
         [self deallocDownload];
         
-        [self loadDownLoadedList:nil];
-        
-      
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self loadDownLoadedList:^{
             [self loadNextUnDownload];
-        });
+        }];
         
         return;
     }

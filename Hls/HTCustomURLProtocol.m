@@ -8,7 +8,7 @@
 #import "HTCustomURLProtocol.h"
 #import "AFNetworking.h"
 // 定义一个协议 key
-static NSString * const HTCustomURLProtocolHandledKey = @"HTCustomURLProtocolHandledKey";
+static NSCache *cache;
 
 @interface HTCustomURLProtocol ()
 
@@ -16,6 +16,14 @@ static NSString * const HTCustomURLProtocolHandledKey = @"HTCustomURLProtocolHan
 
 @implementation HTCustomURLProtocol
 
++ (void)initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        //注册scheme
+        cache = [[NSCache alloc]init];
+        cache.totalCostLimit = 50;
+    });
+}
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
    
     if ([[request URL].absoluteString rangeOfString:@"localhost"].location != NSNotFound) {
@@ -73,6 +81,13 @@ static NSString * const HTCustomURLProtocolHandledKey = @"HTCustomURLProtocolHan
 
 + (void)alert:(NSString *)title url:(NSString *)url {
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *md5UrlStr = [NSString md5String:url];
+        if ([cache objectForKey:md5UrlStr] != nil) {
+            return;
+        }
+        
+        [cache setObject:@"YES" forKey:md5UrlStr];
+        
 //        [((AppDelegate *)UIApplication.sharedApplication.delegate) downloadM3u8WithUrl:kWebCahceRootUrl(m3u8Name) isOnceDownload:NO];
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:title
                                                                            message:url

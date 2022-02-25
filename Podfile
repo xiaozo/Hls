@@ -14,4 +14,5 @@ pod 'zykjUtils'
 #pod 'zykjView'
 pod 'AFNetworking'
 pod 'MBProgressHUD'
+pod 'Bugly'
 end

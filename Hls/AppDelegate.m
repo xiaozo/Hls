@@ -7,6 +7,8 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "CustomExceptionHandler.h"
+#import <Bugly/Bugly.h>
 
 @interface AppDelegate () {
     UIBackgroundTaskIdentifier bgTask;
@@ -20,7 +22,8 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    [CustomExceptionHandler sharedInstance];
+    [Bugly startWithAppId:@"e34b73ad39"];
     return YES;
 }
 

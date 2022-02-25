@@ -80,22 +80,30 @@ static QDNetServerDownLoadTool *tool = nil;
             //将dictionary中的数据写入plist文件中
             [self.downLoadHistoryDictionary writeToFile:self.fileHistoryPath atomically:YES];
         }
-        NSLog(@"%s   self.test.session = %@ ",__func__,self.manager.session);
+//        NSLog(@"%s   self.test.session = %@ ",__func__,self.manager.session);
         
     }
     return  self;
 }
 
 - (void)saveHistoryWithKey:(NSString *)key DownloadTaskResumeData:(NSData *)data{
-    if (!data) {
-        NSString *emptyData = [NSString stringWithFormat:@""];
-        [self.downLoadHistoryDictionary setObject:emptyData forKey:key];
-
-    }else{
-        [self.downLoadHistoryDictionary setObject:data forKey:key];
-    }
     
-  [self.downLoadHistoryDictionary writeToFile:self.fileHistoryPath atomically:NO];
+    @synchronized (self) {
+        if (key == nil) {
+            return;
+        }
+        
+        if (!data) {
+            NSString *emptyData = [NSString stringWithFormat:@""];
+            [self.downLoadHistoryDictionary setObject:emptyData forKey:key];
+
+        }else{
+            [self.downLoadHistoryDictionary setObject:data forKey:key];
+        }
+        
+      [self.downLoadHistoryDictionary writeToFile:self.fileHistoryPath atomically:NO];
+    }
+   
 }
 - (void)saveDownLoadHistoryDirectory{
     [self.downLoadHistoryDictionary writeToFile:self.fileHistoryPath atomically:YES];
