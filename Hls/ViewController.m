@@ -512,7 +512,7 @@ static NSURLSessionDownloadTask *downloadTask;
                         ///ts结尾
                         if ([tline hasPrefix:@"/"]) {
                             ///绝对路径
-                            NSString *substringForMatch = [NSString stringWithFormat:@"%@://%@/%@",[NSURL URLWithString:orginUrlStr].scheme, [NSURL URLWithString:orginUrlStr].host,tline];
+                            NSString *substringForMatch = [NSString stringWithFormat:@"%@://%@:%@/%@",[NSURL URLWithString:orginUrlStr].scheme, [NSURL URLWithString:orginUrlStr].host,[NSURL URLWithString:orginUrlStr].port,tline];
                             [m3u8FileUrlStrs addObject:substringForMatch];
                             tline = [NSString stringWithFormat:@"%@/%@",@"<hls/>", [self localTsNameByTsUrlStr:substringForMatch]];
                         } else {
@@ -608,6 +608,7 @@ static NSURLSessionDownloadTask *downloadTask;
         [hud.progressObject resignCurrent];
         
     } else {
+       
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:subfileUrl];
         [request addValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15" forHTTPHeaderField:@"User-Agent"];
         downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -618,16 +619,24 @@ static NSURLSessionDownloadTask *downloadTask;
                     
         } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
              NSLog(@"下载完成");
-            if (!error) {
+            if (!error || error.code == -1011) {
+                
                 [m3u8FileUrlStrs removeObjectAtIndex:0];
                 [self downloadM3u8WithM3u8FileUrlStrs:m3u8FileUrlStrs Url:urlStr];
-                
+
                 [hud.progressObject becomeCurrentWithPendingUnitCount:1];
                 [hud.progressObject resignCurrent];
             } else {
+                NSLog(@"下载错误:%@",error);
                 [self showTip:error.localizedDescription];
                 [self deallocDownload];
             }
+            
+//            [m3u8FileUrlStrs removeObjectAtIndex:0];
+//            [self downloadM3u8WithM3u8FileUrlStrs:m3u8FileUrlStrs Url:urlStr];
+//
+//            [hud.progressObject becomeCurrentWithPendingUnitCount:1];
+//            [hud.progressObject resignCurrent];
            
             
         }];
@@ -722,6 +731,7 @@ static NSURLSessionDownloadTask *downloadTask;
     Downloaded *download = _downloadedList[indexPath.row];
     WKWebViewController *dst = [[WKWebViewController alloc] init];
     [dst loadWebURLSring:download.webUrl];
+    NSLog(@"%@",download.webUrl);
     
     [self.navigationController pushViewController:dst animated:YES];
     
